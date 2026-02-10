@@ -112,8 +112,10 @@ def main():
         for row in csv.reader(lines):
             if row[0] == _args.backend:
                 backend_to_check.append(row)
-    except requests.exceptions.Timeout:
+    except requests.exceptions.Timeout as e:
         print("UNKNOWN: Check of stats at" + _args.url + """ timed out. Check config!""")
+        if _args.verbose:
+            print(e)
         sys.exit(3)
     except requests.exceptions.ConnectionError as e:
         print("UNKNOWN: Error connecting to haproxy stats at " + _args.url +
