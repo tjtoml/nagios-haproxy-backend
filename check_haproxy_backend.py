@@ -38,20 +38,20 @@ def parse_arguments():
     warn_group = parser.add_mutually_exclusive_group(required=True)
 
     warn_group.add_argument('-w', '--warn', type=int,
-                        help='''If the number of backends up is less than or
-                            equal to this the check will result in a WARNING state.''')
+                        help='''If the number of backends up is less than
+                            this the check will result in a WARNING state.''')
     warn_group.add_argument('-W', '--warn_percentage', type=int,
                             help='''If the percentage of backends up is less
-                            than or equal to this the check will result in a WARNING state.''')
+                            than this the check will result in a WARNING state.''')
 
     crit_group = parser.add_mutually_exclusive_group(required=True)
 
     crit_group.add_argument('-c', '--crit', type=int,
-                        help='''If the number of backends is less than or equal
-                            to this check will result in a CRITICAL state.''')
+                        help='''If the number of backends is less than
+                            this check will result in a CRITICAL state.''')
     crit_group.add_argument('-C', '--crit_percentage', type=int,
                             help='''If the percentage of backends up is less
-                            than or equal to this check will result in a
+                            than this check will result in a
                             CRITICAL state.''')
 
     parsed_args = parser.parse_args()
@@ -66,13 +66,13 @@ def get_status(args, number_of_backends, downed_backends):
     exit_code = 0
 
     if args.crit_percentage:
-        if up_percent <= args.crit_percentage:
+        if up_percent < args.crit_percentage:
             status_message = ( status_message + args.backend + " has " +
             str(up_percent) + "% of backends up.")
             exit_code = 2
 
     if args.crit:
-        if backends_up <= args.crit:
+        if backends_up < args.crit:
             status_message = (status_message + args.backend + " has " +
                               str(backends_up) + " backends up.")
             exit_code = 2
@@ -82,13 +82,13 @@ def get_status(args, number_of_backends, downed_backends):
         sys.exit(exit_code)
 
     if args.warn_percentage:
-        if up_percent <= args.warn_percentage:
+        if up_percent < args.warn_percentage:
             status_message = ( status_message + args.backend + " has " +
             str(up_percent) + "% of backends up.")
             exit_code = 1
 
     if args.warn:
-        if backends_up <= args.warn:
+        if backends_up < args.warn:
             status_message = (status_message + args.backend + " has " +
                               str(backends_up) + " backends up.")
             exit_code = 1
