@@ -50,17 +50,17 @@ options:
 
 The `warn`, `crit`, `crit_percentage`, and `warn_percentage` represent the *minimum* number of backend servers that `haproxy` reports in an `UP` state in order to pass the check - which will usually mean that the `CRITICAL` value will be less than the `WARNING` value. For example, consider a backend `example_backend` with 10 servers, 6 `UP` and 4 `DOWN`:  
   
-`check_haproxy_backend.py --url=10.10.10.10:8443/stats --backend=example_backend --warn=6 --crit=5`  
+`check_haproxy_backend.py --url=http://10.10.10.10:8443/stats --backend=example_backend --warn=6 --crit=5`  
   
 will result in an OK state because the minimum of 6 for a `WARNING` condition is met.   
   
-Changing the `warn` and `crit` flags:
-`check_haproxy_backend.py --url=10.10.10.10:8443/stats --backend=example_backend --warn=7 --crit=6`  
+Changing the `warn` and `crit` flags:  
+`check_haproxy_backend.py --url=http://10.10.10.10:8443/stats --backend=example_backend --warn=7 --crit=6`  
   
 will result in a `WARNING` state because the number of `UP` backend servers is less than the `warn` flag. 
 
-The `crit` flag takes precedence over the `warn` flag:
-`check_haproxy_backend.py --url=10.10.10.10:8443/stats --backend=example_backend --warn=6 --crit=8`  
+The `crit` flag takes precedence over the `warn` flag:  
+`check_haproxy_backend.py --url=http://10.10.10.10:8443/stats --backend=example_backend --warn=6 --crit=8`  
   
 will result in a `CRITICAL` because the number of `UP` backend servers is less than 8. 
 
