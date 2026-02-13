@@ -21,7 +21,8 @@ frontend stats
     stats enable
     stats uri /stats
     stats refresh 10s
-# consult the haproxy documentation - you probably don't want this open to the world, but this should get you going.
+# consult the haproxy documentation - you probably don't want this open to the world,
+# but this should get you going.
 ```
 
 ## Usage
